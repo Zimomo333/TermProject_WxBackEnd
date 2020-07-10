@@ -14,15 +14,21 @@ public class wxController {
     @Autowired
     wxService wxService;
 
-    @RequestMapping("/getOpenid")
+    @RequestMapping("/wx/openid")
     @ResponseBody
     public String getOpenid(String code){
         return wxService.getOpenid(code);
     }
 
-    @RequestMapping("/getQRcode")
+    @RequestMapping("/wx/qrcode")
     @ResponseBody
-    public String getQRcode() throws WriterException, IOException {
-        return wxService.getQRcode();
+    public String getQRcode(String openid) throws WriterException, IOException {
+        return wxService.getQRcode(openid);
+    }
+
+    @RequestMapping("/wx/info")
+    @ResponseBody
+    public String getInfo(String openid) {
+        return wxService.getInfo(openid);
     }
 }

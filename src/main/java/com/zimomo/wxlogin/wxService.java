@@ -47,16 +47,15 @@ public class wxService {
         String body = exchange.getBody();
         JSONObject jsonObject = JSON.parseObject(body);
         jsonObject.put("registerSign",false);
-        System.out.println(jsonObject.toJSONString());
         return jsonObject.toJSONString();
     }
 
-    public String getQRcode() throws WriterException, IOException {
+    public String getQRcode(String openid) throws WriterException, IOException {
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-        User user=new User("test","test","test","test",1,"test","test","test",3,3,false);
+        User user=new User("test","test","test","test","test",1,"test","https://wx.qlogo.cn/mmopen/vi_32/x2pm3wR1Q1fsJ3T1NEfqiaa6ej5o5s8BDDiaIQOr58R5Cic3SAxJC0SyjPQWUjLKB03Jxm2N3SicGxYVfRaC8QHljQ/132","test",3,3,false);
         String json_user = JSON.toJSONString(user);
 
         BitMatrix bitMatrix = qrCodeWriter.encode(json_user, BarcodeFormat.QR_CODE,300,300,hints);
@@ -73,5 +72,11 @@ public class wxService {
         Encoder encoder = Base64.getEncoder();
         String binary = encoder.encodeToString(bytes);
         return binary;
+    }
+
+    public String getInfo(String openid) {
+        User user=new User("test","test","test",1,"test","https://wx.qlogo.cn/mmopen/vi_32/x2pm3wR1Q1fsJ3T1NEfqiaa6ej5o5s8BDDiaIQOr58R5Cic3SAxJC0SyjPQWUjLKB03Jxm2N3SicGxYVfRaC8QHljQ/132","test",3,3,false);
+        String json_user = JSON.toJSONString(user);
+        return json_user;
     }
 }
