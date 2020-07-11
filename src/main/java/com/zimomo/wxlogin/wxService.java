@@ -79,4 +79,5 @@ public class wxService {
         String json_user = JSON.toJSONString(user);
         return json_user;
     }
+
 }

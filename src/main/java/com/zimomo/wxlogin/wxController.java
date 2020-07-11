@@ -2,17 +2,26 @@ package com.zimomo.wxlogin;
 
 import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@RestController
+@Controller
 public class wxController {
 
     @Autowired
     wxService wxService;
+
+    @Autowired
+    waterService waterService;
+
+    @RequestMapping("/")
+    public String index(){
+        return "index.html";
+    }
 
     @RequestMapping("/wx/openid")
     @ResponseBody
@@ -30,5 +39,12 @@ public class wxController {
     @ResponseBody
     public String getInfo(String openid) {
         return wxService.getInfo(openid);
+    }
+
+    @CrossOrigin
+    @RequestMapping("/waterCheck")
+    @ResponseBody
+    public String waterCheck(String ticket,String randstr) {
+        return waterService.waterCheck(ticket,randstr);
     }
 }
